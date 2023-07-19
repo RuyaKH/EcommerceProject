@@ -4,6 +4,7 @@ using EcommerceProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceProject.Data.Migrations
 {
     [DbContext(typeof(CommerceDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230719150217_SetupDbContext")]
+    partial class SetupDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,16 +55,11 @@ namespace EcommerceProject.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WishlistId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BasketId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("WishlistId");
 
                     b.ToTable("CartItemModel");
                 });
@@ -123,7 +121,12 @@ namespace EcommerceProject.Data.Migrations
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WishlistId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WishlistId");
 
                     b.ToTable("ProductModel");
                 });
@@ -361,10 +364,6 @@ namespace EcommerceProject.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcommerceProject.Models.Wishlist", null)
-                        .WithMany("WishlistProducts")
-                        .HasForeignKey("WishlistId");
-
                     b.Navigation("Product");
                 });
 
@@ -377,6 +376,13 @@ namespace EcommerceProject.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Basket");
+                });
+
+            modelBuilder.Entity("EcommerceProject.Models.Product", b =>
+                {
+                    b.HasOne("EcommerceProject.Models.Wishlist", null)
+                        .WithMany("WishlistProducts")
+                        .HasForeignKey("WishlistId");
                 });
 
             modelBuilder.Entity("EcommerceProject.Models.Wishlist", b =>
