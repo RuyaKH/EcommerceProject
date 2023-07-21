@@ -16,15 +16,16 @@ namespace EcommerceProject.Models
         public string Category { get; set; }
 
         [Range(0,99999)]
-        public int QuantityInStock { get; set; }
+        public int? QuantityInStock { get; set; }
 
         [Range(0,Double.MaxValue)]
+        [Required(ErrorMessage = "Price Required")]
         public decimal Price { get; set; }
 
         [StringLength(500)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [StringLength(100)]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }
