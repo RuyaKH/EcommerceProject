@@ -19,8 +19,16 @@ namespace EcommerceProject
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<CommerceDbContext>();
             builder.Services.AddControllersWithViews();
+            
+            builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                SeedData.Initialise(services);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
