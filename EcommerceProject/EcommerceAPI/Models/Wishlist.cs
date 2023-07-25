@@ -15,8 +15,5 @@ namespace EcommerceProject.Models
         public Customer Customer { get; set; }
 
 
-        public List<CartItem> WishlistProducts { get; set; }
-
-
     }
 }

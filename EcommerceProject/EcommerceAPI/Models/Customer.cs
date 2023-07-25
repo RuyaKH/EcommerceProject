@@ -11,11 +11,7 @@ namespace EcommerceProject.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required]
-        public Wishlist Wishlist { get; set; }
-
-        [Required]
-        public Basket Basket { get; set; }
+        public string Email { get; set; }
 
 
 

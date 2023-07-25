@@ -20,5 +20,8 @@ namespace EcommerceProject.Models
 
         [Range(0,99999, ErrorMessage = "Product quantity out of range.")]
         public int OrderQuantity { get; set; }
+
+        public int? WishlistId { get; set; }
+        public Wishlist? Wishlist { get; set;}
     }
 }

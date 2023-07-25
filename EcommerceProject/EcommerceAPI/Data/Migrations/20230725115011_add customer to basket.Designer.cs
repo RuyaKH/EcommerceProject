@@ -4,6 +4,7 @@ using EcommerceProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceProject.Data.Migrations
 {
     [DbContext(typeof(CommerceDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230725115011_add customer to basket")]
+    partial class addcustomertobasket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,8 @@ namespace EcommerceProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
                     b.ToTable("BasketModel");
                 });
@@ -78,10 +82,6 @@ namespace EcommerceProject.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -143,7 +143,8 @@ namespace EcommerceProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
                     b.ToTable("WishlistModel");
                 });
@@ -349,8 +350,8 @@ namespace EcommerceProject.Data.Migrations
             modelBuilder.Entity("EcommerceProject.Models.Basket", b =>
                 {
                     b.HasOne("EcommerceProject.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
+                        .WithOne("Basket")
+                        .HasForeignKey("EcommerceProject.Models.Basket", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -371,22 +372,20 @@ namespace EcommerceProject.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcommerceProject.Models.Wishlist", "Wishlist")
-                        .WithMany()
+                    b.HasOne("EcommerceProject.Models.Wishlist", null)
+                        .WithMany("WishlistProducts")
                         .HasForeignKey("WishlistId");
 
                     b.Navigation("Basket");
 
                     b.Navigation("Product");
-
-                    b.Navigation("Wishlist");
                 });
 
             modelBuilder.Entity("EcommerceProject.Models.Wishlist", b =>
                 {
                     b.HasOne("EcommerceProject.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
+                        .WithOne("Wishlist")
+                        .HasForeignKey("EcommerceProject.Models.Wishlist", "CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -442,6 +441,20 @@ namespace EcommerceProject.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EcommerceProject.Models.Customer", b =>
+                {
+                    b.Navigation("Basket")
+                        .IsRequired();
+
+                    b.Navigation("Wishlist")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EcommerceProject.Models.Wishlist", b =>
+                {
+                    b.Navigation("WishlistProducts");
                 });
 #pragma warning restore 612, 618
         }
