@@ -4,6 +4,7 @@ using EcommerceProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceProject.Data.Migrations
 {
     [DbContext(typeof(CommerceDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230725101622_updateBasketModelAgain")]
+    partial class updateBasketModelAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,7 +348,7 @@ namespace EcommerceProject.Data.Migrations
 
             modelBuilder.Entity("EcommerceProject.Models.CartItem", b =>
                 {
-                    b.HasOne("EcommerceProject.Models.Basket", "Basket")
+                    b.HasOne("EcommerceProject.Models.Basket", null)
                         .WithMany("ProductList")
                         .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -360,8 +363,6 @@ namespace EcommerceProject.Data.Migrations
                     b.HasOne("EcommerceProject.Models.Wishlist", null)
                         .WithMany("WishlistProducts")
                         .HasForeignKey("WishlistId");
-
-                    b.Navigation("Basket");
 
                     b.Navigation("Product");
                 });

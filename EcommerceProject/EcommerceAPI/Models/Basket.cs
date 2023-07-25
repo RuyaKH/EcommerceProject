@@ -7,7 +7,7 @@ namespace EcommerceProject.Models
         [Key]
         public int Id { get; set; }
 
-        public List<CartItem> ProductList { get; set; }
+        public IEnumerable<CartItem>? ProductList { get; set; }
 
 
     }

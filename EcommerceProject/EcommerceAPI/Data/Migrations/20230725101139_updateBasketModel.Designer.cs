@@ -4,6 +4,7 @@ using EcommerceProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceProject.Data.Migrations
 {
     [DbContext(typeof(CommerceDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230725101139_updateBasketModel")]
+    partial class updateBasketModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace EcommerceProject.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BasketId")
+                    b.Property<int?>("BasketId")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderQuantity")
@@ -345,11 +348,9 @@ namespace EcommerceProject.Data.Migrations
 
             modelBuilder.Entity("EcommerceProject.Models.CartItem", b =>
                 {
-                    b.HasOne("EcommerceProject.Models.Basket", "Basket")
+                    b.HasOne("EcommerceProject.Models.Basket", null)
                         .WithMany("ProductList")
-                        .HasForeignKey("BasketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BasketId");
 
                     b.HasOne("EcommerceProject.Models.Product", "Product")
                         .WithMany()
@@ -360,8 +361,6 @@ namespace EcommerceProject.Data.Migrations
                     b.HasOne("EcommerceProject.Models.Wishlist", null)
                         .WithMany("WishlistProducts")
                         .HasForeignKey("WishlistId");
-
-                    b.Navigation("Basket");
 
                     b.Navigation("Product");
                 });

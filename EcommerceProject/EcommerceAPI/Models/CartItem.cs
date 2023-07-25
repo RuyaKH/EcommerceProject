@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcommerceProject.Models
 {
@@ -6,6 +7,13 @@ namespace EcommerceProject.Models
     {
         [Key]
         public int Id { get; set; }
+
+        public Basket Basket { get; set; }
+
+        [ForeignKey("Basket")]
+        public int BasketId { get; set; }
+
+        public int ProductId { get; set; }
 
         [Required(ErrorMessage = "Product Required.")]
         public Product Product { get; set; }
