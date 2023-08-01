@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EcommerceAPI.Models
+namespace EcommerceProject.Models
 {
     public class Product
     {
@@ -15,10 +15,10 @@ namespace EcommerceAPI.Models
         [Required(ErrorMessage = "Category Required")]
         public string Category { get; set; }
 
-        [Range(0,99999)]
+        [Range(0, 99999)]
         public int? QuantityInStock { get; set; }
 
-        [Range(0,Double.MaxValue)]
+        [Range(0, Double.MaxValue)]
         [Required(ErrorMessage = "Price Required")]
         public decimal Price { get; set; }
 

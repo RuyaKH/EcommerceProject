@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcommerceProject.Models
+namespace EcommerceAPI.Models
 {
     public class Basket
     {

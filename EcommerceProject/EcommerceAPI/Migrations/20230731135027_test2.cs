@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace EcommerceProject.Data.Migrations
+namespace EcommerceAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class updatemodel2 : Migration
+    public partial class test2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

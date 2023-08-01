@@ -1,4 +1,4 @@
-﻿namespace EcommerceProject.Models
+﻿namespace EcommerceAPI.Models
 {
     public class ServiceResponse<T>
     {

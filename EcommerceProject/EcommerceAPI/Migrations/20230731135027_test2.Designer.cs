@@ -4,16 +4,19 @@ using EcommerceProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EcommerceProject.Data.Migrations
+namespace EcommerceAPI.Migrations
 {
-    [DbContext(typeof(CommerceDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ECommerceDbContext))]
+    [Migration("20230731135027_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace EcommerceProject.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EcommerceProject.Models.Basket", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.Basket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +43,7 @@ namespace EcommerceProject.Data.Migrations
                     b.ToTable("BasketModel");
                 });
 
-            modelBuilder.Entity("EcommerceProject.Models.CartItem", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +74,7 @@ namespace EcommerceProject.Data.Migrations
                     b.ToTable("CartItemModel");
                 });
 
-            modelBuilder.Entity("EcommerceProject.Models.Customer", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,7 +96,7 @@ namespace EcommerceProject.Data.Migrations
                     b.ToTable("CustomerModel");
                 });
 
-            modelBuilder.Entity("EcommerceProject.Models.Product", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +133,7 @@ namespace EcommerceProject.Data.Migrations
                     b.ToTable("ProductModel");
                 });
 
-            modelBuilder.Entity("EcommerceProject.Models.Wishlist", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.Wishlist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,9 +349,9 @@ namespace EcommerceProject.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EcommerceProject.Models.Basket", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.Basket", b =>
                 {
-                    b.HasOne("EcommerceProject.Models.Customer", "Customer")
+                    b.HasOne("EcommerceAPI.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -357,21 +360,21 @@ namespace EcommerceProject.Data.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("EcommerceProject.Models.CartItem", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.CartItem", b =>
                 {
-                    b.HasOne("EcommerceProject.Models.Basket", "Basket")
+                    b.HasOne("EcommerceAPI.Models.Basket", "Basket")
                         .WithMany()
                         .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcommerceProject.Models.Product", "Product")
+                    b.HasOne("EcommerceAPI.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EcommerceProject.Models.Wishlist", "Wishlist")
+                    b.HasOne("EcommerceAPI.Models.Wishlist", "Wishlist")
                         .WithMany()
                         .HasForeignKey("WishlistId");
 
@@ -382,9 +385,9 @@ namespace EcommerceProject.Data.Migrations
                     b.Navigation("Wishlist");
                 });
 
-            modelBuilder.Entity("EcommerceProject.Models.Wishlist", b =>
+            modelBuilder.Entity("EcommerceAPI.Models.Wishlist", b =>
                 {
-                    b.HasOne("EcommerceProject.Models.Customer", "Customer")
+                    b.HasOne("EcommerceAPI.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)

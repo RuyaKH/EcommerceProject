@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EcommerceProject.Data;
-using EcommerceProject.Models;
+using EcommerceAPI.Models;
 
 namespace EcommerceAPI.Controllers
 {
@@ -14,9 +14,9 @@ namespace EcommerceAPI.Controllers
     [ApiController]
     public class WishlistsController : ControllerBase
     {
-        private readonly CommerceDbContext _context;
+        private readonly ECommerceDbContext _context;
 
-        public WishlistsController(CommerceDbContext context)
+        public WishlistsController(ECommerceDbContext context)
         {
             _context = context;
         }

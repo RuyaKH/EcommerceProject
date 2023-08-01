@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EcommerceProject.Data;
-using EcommerceProject.Models;
+using EcommerceAPI.Models;
 
 namespace EcommerceAPI.Controllers
 {
@@ -14,9 +14,9 @@ namespace EcommerceAPI.Controllers
     [ApiController]
     public class BasketsController : ControllerBase
     {
-        private readonly CommerceDbContext _context;
+        private readonly ECommerceDbContext _context;
 
-        public BasketsController(CommerceDbContext context)
+        public BasketsController(ECommerceDbContext context)
         {
             _context = context;
         }

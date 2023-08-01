@@ -1,4 +1,4 @@
-﻿using EcommerceProject.Models;
+﻿using EcommerceAPI.Models;
 
 namespace EcommerceProject.Data
 {
@@ -6,7 +6,7 @@ namespace EcommerceProject.Data
     {
         public static void Initialise(IServiceProvider serviceProvider)
         {
-            var context = serviceProvider.GetRequiredService<CommerceDbContext>();
+            var context = serviceProvider.GetRequiredService<ECommerceDbContext>();
 
             if (context.ProductModel.Any() || context.CustomerModel.Any() || context.BasketModel.Any() || context.CartItemModel.Any() || context.WishlistModel.Any())
             {

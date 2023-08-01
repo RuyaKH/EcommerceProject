@@ -1,12 +1,12 @@
-﻿using EcommerceProject.Models;
+﻿using EcommerceAPI.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceProject.Data
 {
-    public class CommerceDbContext : IdentityDbContext
+    public class ECommerceDbContext : IdentityDbContext
     {
-        public CommerceDbContext(DbContextOptions<CommerceDbContext> options)
+        public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options)
             : base(options)
         {
         }

@@ -1,5 +1,8 @@
+using EcommerceProject.Data;
+using EcommerceProject.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace EcommerceProject
 {
@@ -10,28 +13,37 @@ namespace EcommerceProject
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ECommerceDbContext>(options =>
+                options.UseSqlServer(connectionString));
 
-            // builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CommerceDbContext>();
+            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ECommerceDbContext>();
             builder.Services.AddControllersWithViews();
-            
-            builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            builder.Services.AddHttpClient<IProductService, ProductService>(c =>
+c.BaseAddress = new Uri("https://localhost:7222/"));
+            //builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (!app.Environment.IsDevelopment())
             {
-                app.UseMigrationsEndPoint();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseExceptionHandler("/Home/Error"); ;
             }
 
-            app.UseHttpsRedirection();
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseMigrationsEndPoint();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
+
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -41,7 +53,7 @@ namespace EcommerceProject
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            //app.MapRazorPages();
 
             app.Run();
         }

@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EcommerceProject.Data;
-using EcommerceProject.Models;
+using EcommerceAPI.Models;
 
 namespace EcommerceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class CustomersControllerAPI : ControllerBase
     {
-        private readonly CommerceDbContext _context;
+        private readonly ECommerceDbContext _context;
 
-        public CustomersController(CommerceDbContext context)
+        public CustomersControllerAPI(ECommerceDbContext context)
         {
             _context = context;
         }
