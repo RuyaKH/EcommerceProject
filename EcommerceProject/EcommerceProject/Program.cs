@@ -20,8 +20,8 @@ namespace EcommerceProject
 
             builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ECommerceDbContext>();
             builder.Services.AddControllersWithViews();
-            builder.Services.AddHttpClient<IProductService, ProductService>(c =>
-c.BaseAddress = new Uri("https://localhost:7222/"));
+            builder.Services.AddHttpClient<IProductService, ProductService>
+                (c => c.BaseAddress = new Uri("https://localhost:7000/"));
             //builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             var app = builder.Build();

@@ -12,11 +12,11 @@ namespace EcommerceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersControllerAPI : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly ECommerceDbContext _context;
 
-        public CustomersControllerAPI(ECommerceDbContext context)
+        public CustomersController(ECommerceDbContext context)
         {
             _context = context;
         }

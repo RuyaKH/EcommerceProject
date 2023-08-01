@@ -2,7 +2,7 @@
 
 namespace EcommerceProject.Models
 {
-    public class Product
+    public class ProductMVC
     {
         [Key]
         public int Id { get; set; }
