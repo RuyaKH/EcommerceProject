@@ -12,9 +12,9 @@ namespace EcommerceProject.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
-        public async Task<IActionResult> ProductIndex(string searchString)
+        public async Task<IActionResult> ProductIndex()
         {
-            var products = await _productService.GetProductItemsAsync(searchString);
+            var products = await _productService.GetProductItemsAsync();
             return View(products);
         }
     }

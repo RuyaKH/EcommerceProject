@@ -18,32 +18,11 @@ namespace EcommerceProject.Services
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _context = context;
         }
-        public async Task<ServiceResponse<ProductViewModel>> GetProductItemsAsync(string searchString)
+        public async Task<IEnumerable<Product>> GetProductItemsAsync()
         {
             var httpResponse = await _httpClient.GetAsync(BasePath);
 
-            var response = new ServiceResponse<ProductViewModel>();
-            bool isNull = _context.ProductModel.IsNullOrEmpty();
-            if (isNull) 
-            { 
-                response.Success = false;
-                response.Message = "Context is empty";
-                return response;
-            }
-
-            var products = from p in _context.ProductModel
-                           select p;
-
-            if(!string.IsNullOrEmpty(searchString))
-            {
-                products = products.Where(s => s.Name!.Contains(searchString));
-            }
-
-            response.Data = new ProductViewModel
-            {
-                Products = await httpResponse.ReadContentAsync<List<Product>>()
-            };
-            return response;
+            return await httpResponse.ReadContentAsync<List<Product>>();
         }
     }
 }

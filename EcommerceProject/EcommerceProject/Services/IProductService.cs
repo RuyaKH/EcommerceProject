@@ -5,7 +5,7 @@ namespace EcommerceProject.Services
 {
     public interface IProductService
     {
-        Task<ServiceResponse<ProductViewModel>> GetProductItemsAsync(string searchString);
+        Task<IEnumerable<Product>> GetProductItemsAsync();
 
     }
 }

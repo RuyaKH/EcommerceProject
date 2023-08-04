@@ -1,35 +1,26 @@
-﻿@model EcommerceProject.Models.ProductViewModel
+﻿@model IEnumerable<EcommerceAPI.Models.Product>
 
-<h1>Products</h1>
 <br />
 <br />
-
-<form asp-controller="Products" asp-action="ProductIndex" method="get">
-    <p>
-        Name: <input type="text" asp-for="SearchString"/>
-        <input type="submit" value="Filter"/>
-    </p>
-</form>
-
 <table class="table">
-    <thead>
+    <tdead>
         <tr>
-            <th>@Html.DisplayNameFor(p => p.Products[0].Name)</th>
-            <th>@Html.DisplayNameFor(p => p.Products[0].Price)</th>
-            <th>@Html.DisplayNameFor(p => p.Products[0].Category)</th>
-            <th>@Html.DisplayNameFor(p => p.Products[0].Description)</th>
-            <th>@Html.DisplayNameFor(p => p.Products[0].QuantityInStock)</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Quantity In Stock</th>
         </tr>
-    </thead>
+    </tdead>
     <tbody>
-        @foreach (var item in Model.Products)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                <td>@Html.DisplayFor(modelItem => item.Category)</td>
-                <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                <td>@Html.DisplayFor(modelItem => item.QuantityInStock)</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Category</td>
+                <td>@item.Description</td>
+                <td>@item.QuantityInStock</td>
             </tr>
         }
     </tbody>
