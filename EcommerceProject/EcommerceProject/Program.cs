@@ -1,3 +1,4 @@
+using EcommerceAPI.Models;
 using EcommerceProject.Data;
 using EcommerceProject.Services;
 using Microsoft.AspNetCore.Identity;
@@ -20,8 +21,14 @@ namespace EcommerceProject
 
             builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ECommerceDbContext>();
             builder.Services.AddControllersWithViews();
-            builder.Services.AddHttpClient<IProductService, ProductService>
+
+            builder.Services.AddHttpClient<IService<Product>, ProductService>
                 (c => c.BaseAddress = new Uri("https://localhost:7000/"));
+            builder.Services.AddHttpClient<IService<CartItem>, CartItemService>
+                (c => c.BaseAddress = new Uri("https://localhost:7000/"));
+            builder.Services.AddHttpClient<IService<Basket>, BasketService>
+                (c => c.BaseAddress = new Uri("https://localhost:7000/"));
+
             //builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             var app = builder.Build();
@@ -31,17 +38,6 @@ namespace EcommerceProject
             {
                 app.UseExceptionHandler("/Home/Error"); ;
             }
-
-            //if (app.Environment.IsDevelopment())
-            //{
-            //    app.UseMigrationsEndPoint();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
 
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -53,7 +49,6 @@ namespace EcommerceProject
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            //app.MapRazorPages();
 
             app.Run();
         }

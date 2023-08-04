@@ -7,22 +7,20 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EcommerceProject.Services
 {
-    public class ProductService : IService<Product>
+    public class CustomerService : IService<Customer>
     {
         private readonly HttpClient _httpClient;
-        private readonly ECommerceDbContext _context;
-        public const string BasePath = "/api/Products";
+        public const string BasePath = "/api/Customers";
 
-        public ProductService(HttpClient httpClient, ECommerceDbContext context)
+        public CustomerService(HttpClient httpClient)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _context = context;
         }
-        public async Task<IEnumerable<Product>> GetItemsAsync()
+        public async Task<IEnumerable<Customer>> GetItemsAsync()
         {
             var httpResponse = await _httpClient.GetAsync(BasePath);
 
-            return await httpResponse.ReadContentAsync<List<Product>>();
+            return await httpResponse.ReadContentAsync<List<Customer>>();
         }
     }
 }

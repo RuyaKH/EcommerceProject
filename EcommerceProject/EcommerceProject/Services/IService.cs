@@ -3,9 +3,9 @@ using EcommerceProject.Models;
 
 namespace EcommerceProject.Services
 {
-    public interface IProductService
+    public interface IService<T>
     {
-        Task<IEnumerable<Product>> GetProductItemsAsync();
+        Task<IEnumerable<T>> GetItemsAsync();
 
     }
 }
